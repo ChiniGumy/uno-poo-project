@@ -27,7 +27,7 @@ public class SpecialCard extends Card {
 
     @Override
     public String toString() {
-        return color.toUpperCase() + ' ' + effect;
+        return color.toUpperCase() + effect;
     }
 
 }

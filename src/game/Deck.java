@@ -4,50 +4,54 @@ import game.card.Card;
 import game.card.NormalCard;
 import game.card.SpecialCard;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck {
     
     public Deck() {
         createDeck();
+        shufleDeck();
     }
 
     String[] colors = Card.getColors();
     String[] effects = SpecialCard.getEffects();
     String[] blackEffects = SpecialCard.getBlackeffects();
 
-    ArrayList<Card> deck = new ArrayList<>();
+    ArrayList<Card> cards = new ArrayList<>();
 
     private void createDeck() {
         // Add normal cards to deck
         for (String color : colors) {
             for (int i = 0; i <= 9; i++) {
                 NormalCard card = new NormalCard(i, color);
-                deck.add(card);
+                cards.add(card);
             }
             
         }
-
         // Add special color cards to deck
         for (String color : colors) {
             for (String effect : effects) {
                 for (int i = 0; i < 2; i++) {
                     SpecialCard card = new SpecialCard(effect, color);
-                    deck.add(card);
+                    cards.add(card);
                 }
             }
         }
-
         // Add special black cards to deck
         for (String effect : blackEffects) {
             for (int i = 0; i < 2; i++) {
                 SpecialCard card = new SpecialCard(effect);
-                deck.add(card);
+                cards.add(card);
             }
         }
     }
 
-    public ArrayList<Card> getDeck() {
-        return deck;
+    private void shufleDeck() {
+        Collections.shuffle(cards);
+    }
+
+    public ArrayList<Card> getCards() {
+        return cards;
     }
 
 }

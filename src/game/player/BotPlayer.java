@@ -1,5 +1,5 @@
 package game.player;
 
-public class BotPlayer {
+public class BotPlayer extends Player {
     
 }
