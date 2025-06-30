@@ -12,8 +12,14 @@ public class Player {
         hand.add(deck.getCards().removeLast());
     }
 
+    // public void playCard(Card card, CardHeap cardHeap){
+    //     if (GameEngine.isPlayable(card, cardHeap)) {
+    //         hand.remove(card);
+    //         cardHeap.addCardtoHeap(card);
+    //     }
+    // }
+
     public ArrayList<Card> getHand() {
-        System.out.println(hand);
         return hand;
     }
 }

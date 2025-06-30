@@ -7,6 +7,10 @@ public class NormalCard extends Card {
         super(color);
         this.denomination = denomination;
     }
+
+    public int getDenomination() {
+        return denomination;
+    }
     
     @Override
     public String toString() {

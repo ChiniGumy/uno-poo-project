@@ -6,7 +6,7 @@ import game.card.SpecialCard;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Deck {
+public final class Deck {
     
     public Deck() {
         createDeck();
@@ -46,8 +46,12 @@ public class Deck {
         }
     }
 
-    private void shufleDeck() {
+    public void shufleDeck() {
         Collections.shuffle(cards);
+    }
+
+    public int getRemainingCards() {
+        return cards.size();
     }
 
     public ArrayList<Card> getCards() {

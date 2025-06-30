@@ -17,4 +17,8 @@ public abstract class Card {
         return colors;
     }
 
+    public String getColor() {
+        return color;
+    }
+
 }
