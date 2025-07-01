@@ -29,5 +29,12 @@ public class SpecialCard extends Card {
     public String toString() {
         return color.toUpperCase() + effect;
     }
+    
+    @Override
+    public boolean isPlayable(Card topCard) {
+        boolean sameColor = this.color.equals(topCard.getColor());
+        boolean isBlack = this.color.equals("n");
+        return sameColor || isBlack;
+    }
 
 }

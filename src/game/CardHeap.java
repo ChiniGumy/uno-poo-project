@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class CardHeap {
     private final ArrayList<Card> playedCards = new ArrayList<>();
 
-    public void addCardtoHeap(Card card) {
+    public void addCardToHeap(Card card) {
         playedCards.add(card);
     }
 

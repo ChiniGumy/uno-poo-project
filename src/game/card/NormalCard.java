@@ -1,4 +1,5 @@
 package game.card;
+import java.util.ArrayList;
 
 public class NormalCard extends Card {
     final private int denomination;
@@ -17,4 +18,11 @@ public class NormalCard extends Card {
         return color.toUpperCase() + denomination;
     }
     
+    @Override
+    public boolean isPlayable(Card topCard) {
+        boolean sameColor = this.color.equals(topCard.getColor());
+        boolean sameDenomination = topCard instanceof NormalCard && this.denomination == ((NormalCard) topCard).getDenomination();
+
+        return sameColor || sameDenomination;
+    }
 }
