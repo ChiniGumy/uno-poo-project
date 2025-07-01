@@ -23,7 +23,6 @@ public class UI {
     }
 
     public void showRound(Player player, Player bot, CardHeap cardHeap, Deck deck, int round) {
-        // clearScreen();
         showRoundNumber(round);
         showRemainingDeckCards(deck);
         showCardHeapSize(cardHeap);
@@ -82,19 +81,15 @@ public class UI {
     }
 
     public void showHumanPlay(String playerName, Card card) {
-        System.out.println(ANSI_GREEN + playerName + " jugó: " + coloredCard(card) + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\n" + playerName + " jugó: " + coloredCard(card) + ANSI_RESET);
     }
     
-    public void showBotPlay(String botName, Object card) {
-        if (card instanceof Card card1) {
-            System.out.println(ANSI_CYAN + botName + " jugó: " + coloredCard(card1) + ANSI_RESET);
-        } else {
-            System.out.println(ANSI_CYAN + botName + " jugó: " + card + ANSI_RESET);
-        }
+    public void showBotPlay(String botName, Card card) {
+        System.out.println(ANSI_CYAN + "\n" + botName + " jugó: " + coloredCard(card) + ANSI_RESET);
     }
 
     public void showDrawCard(String playerName) {
-        System.out.println(ANSI_CYAN + playerName + " no pudo jugar, robó una carta." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\n" + playerName + " no pudo jugar, robó una carta." + ANSI_RESET);
     }
 
     public void showInputPrompt() {
@@ -102,15 +97,15 @@ public class UI {
     }
     
     public void showInvalidPlay() {
-        System.out.println(ANSI_RED + "No puedes jugar esa carta." + ANSI_RESET);
+        System.out.println(ANSI_RED + "\nNo puedes jugar esa carta." + ANSI_RESET);
     }
     
     public void showIndexOutOfRange() {
-        System.out.println(ANSI_RED + "Indice fuera de rango." + ANSI_RESET);
+        System.out.println(ANSI_RED + "\nIndice fuera de rango." + ANSI_RESET);
     }
    
     public void showInvalidInput() {
-        System.out.println(ANSI_RED + "Entrada inválida." + ANSI_RESET);
+        System.out.println(ANSI_RED + "\nEntrada inválida." + ANSI_RESET);
     }
 
     public void clearScreen() {  

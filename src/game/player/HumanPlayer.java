@@ -18,6 +18,13 @@ public class HumanPlayer extends Player {
         return "Jugador";
     }
 
+    public void waitForUser() {
+        System.out.println(UI.ANSI_YELLOW + "\nPresiona Enter para continuar..." + UI.ANSI_RESET);
+        try {
+            scanner.nextLine();
+        } catch (Exception e) { }
+    }
+
     @Override
     public Card playTurn(Card topCard) {
         while (true) {

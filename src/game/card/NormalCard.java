@@ -1,5 +1,4 @@
 package game.card;
-import java.util.ArrayList;
 
 public class NormalCard extends Card {
     final private int denomination;
