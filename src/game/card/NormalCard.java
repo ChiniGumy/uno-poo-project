@@ -18,8 +18,8 @@ public class NormalCard extends Card {
     }
     
     @Override
-    public boolean isPlayable(Card topCard) {
-        boolean sameColor = this.color.equals(topCard.getColor());
+    public boolean isPlayable(Card topCard, String currentColor) {
+        boolean sameColor = this.color.equals(currentColor);
         boolean sameDenomination = topCard instanceof NormalCard && this.denomination == ((NormalCard) topCard).getDenomination();
 
         return sameColor || sameDenomination;

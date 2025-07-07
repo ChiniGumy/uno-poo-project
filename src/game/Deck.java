@@ -28,22 +28,24 @@ public final class Deck {
             }
             
         }
+
         // Add special color cards to deck
-        // for (String color : colors) {
-        //     for (String effect : effects) {
-        //         for (int i = 0; i < 2; i++) {
-        //             SpecialCard card = new SpecialCard(effect, color);
-        //             cards.add(card);
-        //         }
-        //     }
-        // }
+        for (String color : colors) {
+            for (String effect : effects) {
+                for (int i = 0; i < 2; i++) {
+                    SpecialCard card = new SpecialCard(effect, color);
+                    cards.add(card);
+                }
+            }
+        }
+
         // Add special black cards to deck
-        // for (String effect : blackEffects) {
-        //     for (int i = 0; i < 2; i++) {
-        //         SpecialCard card = new SpecialCard(effect);
-        //         cards.add(card);
-        //     }
-        // }
+        for (String effect : blackEffects) {
+            for (int i = 0; i < 2; i++) {
+                SpecialCard card = new SpecialCard(effect);
+                cards.add(card);
+            }
+        }
     }
 
     public void shuffleDeck() {

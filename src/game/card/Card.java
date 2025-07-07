@@ -21,5 +21,5 @@ public abstract class Card {
         return color;
     }
 
-    public abstract boolean isPlayable(Card topCard);
+    public abstract boolean isPlayable(Card topCard, String currentColor);
 }

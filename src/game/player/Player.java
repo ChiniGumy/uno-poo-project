@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public abstract class Player {
 
     protected ArrayList<Card> hand = new ArrayList<>();
-
+    
     public void drawCard(Deck deck){
         hand.add(deck.getCards().removeLast());
         hand.sort((c1, c2) -> Integer.compare(colorOrder(c1.getColor()), colorOrder(c2.getColor())));
@@ -28,7 +28,7 @@ public abstract class Player {
         return new ArrayList<>(hand);
     }
 
-    public abstract Card playTurn(Card topCard);
+    public abstract Card playTurn(Card topCard, Player opponent, Deck deck);
 
     protected void removeCard(int index) {
         hand.remove(index);

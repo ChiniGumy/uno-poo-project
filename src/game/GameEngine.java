@@ -22,6 +22,9 @@ public final class GameEngine {
     private final BotPlayer bot = new BotPlayer();
     private final CardHeap cardHeap = new CardHeap();
     private final UI ui = new UI();
+
+    public static String currentColor;
+    public static int round;
     
     public void dealFirstHand(Player player, BotPlayer bot){
         for (int i = 0; i < HAND_SIZE; i++) {
@@ -46,29 +49,40 @@ public final class GameEngine {
         } while (lastCardOnHeap instanceof SpecialCard);
     }
 
+    public void remakeDeck() {
+        ui.showRemakeDeck();
+        for (int i = 0; i < cardHeap.getPlayedCardsSize() - 1; i++) {
+            deck.getCards().add(cardHeap.getPlayedCards().removeFirst());   
+        }
+        deck.shuffleDeck();
+    }
+
     public boolean isHandPlayable(ArrayList<Card> hand, Card lastPlayedCard) {
         
         boolean handPlayable = false;
 
         List<Card> playable = hand.stream()
-            .filter(card -> card.isPlayable(lastPlayedCard))
+            .filter(card -> card.isPlayable(lastPlayedCard, GameEngine.currentColor))
             .toList();
         
         for (Card card : playable) {
-            handPlayable = card.isPlayable(lastPlayedCard);
+            handPlayable = card.isPlayable(lastPlayedCard, GameEngine.currentColor);
         }
         return handPlayable;
     }
 
-    public void playRound(int round) {
+    public void playRound(Player currentPlayer, Player opponent, int round, Deck deck) {
+        Card topCard = cardHeap.getLastCardPlayed();
+
+        if (round == 1){
+            GameEngine.currentColor = topCard.getColor();
+        }
+
         ui.clearScreen();
         ui.showRound(player, bot, cardHeap, deck, round);
 
-        Player currentPlayer = (round % 2 == 0) ? bot : player;
-        Card topCard = cardHeap.getLastCardPlayed();
-
         if (currentPlayer instanceof BotPlayer) {
-            Card played = currentPlayer.playTurn(topCard);
+            Card played = currentPlayer.playTurn(topCard, opponent, deck);
             if (played != null) {
                 cardHeap.addCardToHeap(played);
                 ui.showBotPlay(currentPlayer.toString(), played);
@@ -80,27 +94,30 @@ public final class GameEngine {
             player.waitForUser();
 
         } else if (currentPlayer instanceof HumanPlayer) {
-
             if (isHandPlayable(player.getHand(), topCard)) {
-                Card played = currentPlayer.playTurn(topCard);
+                Card played = currentPlayer.playTurn(topCard, opponent, deck);
                 cardHeap.addCardToHeap(played);
                 ui.showHumanPlay(currentPlayer.toString(), played);
 
             } else {
                 currentPlayer.drawCard(deck);
                 ui.showDrawCard(currentPlayer.toString());
-                player.waitForUser();
             }
-            // TODO checkear mano primero para ver si tiene cartas jugables
-            
+            player.waitForUser();
         }
-
     }
     
     public void startGame() {
-        int round = 1;
+        round = 1;
         while (true) {
-            playRound(round);
+            if (deck.getRemainingCards() == 0) {
+                ui.clearScreen();
+                remakeDeck();
+                player.waitForUser();
+            }
+            Player currentPlayer = (round % 2 == 0) ? bot : player;
+            Player opponent = (round % 2 == 0) ? player : bot;
+            playRound(currentPlayer, opponent, round, deck);
             if (player.getHand().isEmpty()) {
                 System.out.println(UI.ANSI_GREEN + "¡Jugador ha ganado!" + UI.ANSI_RESET);
                 break;

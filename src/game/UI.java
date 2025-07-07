@@ -1,5 +1,6 @@
 package game;
 import game.card.Card;
+import game.card.SpecialCard;
 import game.player.Player;
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class UI {
     }
 
     public void showLastPlayedCard(CardHeap cardHeap) {
-        System.out.println("Ultima carta jugada: " + coloredCard(cardHeap.getLastCardPlayed()));
+        System.out.println("Ultima carta jugada: " + showCurrentColor() + cardHeap.getLastCardPlayed() + ANSI_RESET);
     }
 
     public void showRemainingDeckCards(Deck deck) {
@@ -80,16 +81,67 @@ public class UI {
         return colorCode + card.toString() + ANSI_RESET;
     }
 
+    public String showCurrentColor() {
+        return switch (GameEngine.currentColor) {
+            case "z" -> ANSI_BLUE ;
+            case "a" -> ANSI_YELLOW;
+            case "r" -> ANSI_RED;
+            case "v" -> ANSI_GREEN;
+            default -> ANSI_WHITE;
+        };
+    }
+
+    public void showCardEffect(SpecialCard card, Player opponent) {
+        switch (card.getEffect()) {
+            case "+2" -> System.out.println("\n" + showCurrentColor() + "+2 " + ANSI_RESET + ANSI_CYAN + "para " + opponent + ANSI_RESET);
+            case "+4" -> System.out.println("\n" + showCurrentColor() + "+4 " + ANSI_RESET + ANSI_CYAN + "para " + opponent + ANSI_RESET);
+            case "^" -> System.out.println(ANSI_RED + "\nBloqueando siguiente turno " + ANSI_RESET);
+            case "&" -> System.out.println(ANSI_RED + "\nBloqueando siguiente turno" + ANSI_RESET);
+            default -> { }
+        }
+    }
+
+    public void showNewColor(String color) {
+        switch (color) {
+            case "z" -> System.out.println("\nSe cambio el color a " + ANSI_BLUE + "Azul" + ANSI_RESET );
+            case "a" -> System.out.println("\nSe cambio el color a " + ANSI_YELLOW + "Amarillo" + ANSI_RESET );
+            case "r" -> System.out.println("\nSe cambio el color a " + ANSI_RED + "Rojo" + ANSI_RESET );
+            case "v" -> System.out.println("\nSe cambio el color a " + ANSI_GREEN + "Verde" + ANSI_RESET );
+            default -> {
+            }
+        }
+    }
+
+    public void showAvailableColors() {
+        System.out.println("\nCambio de color!");
+        System.out.println(ANSI_BLUE + "Azul [Z]" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Amarillo [A]" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Rojo [R]" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Verde [V]" + ANSI_RESET);
+    }
+
     public void showHumanPlay(String playerName, Card card) {
-        System.out.println(ANSI_CYAN + "\n" + playerName + " jugó: " + coloredCard(card) + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\n" + playerName + " jugó: " + showCurrentColor() + card.toString() + ANSI_RESET);
     }
     
     public void showBotPlay(String botName, Card card) {
-        System.out.println(ANSI_CYAN + "\n" + botName + " jugó: " + coloredCard(card) + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\n" + botName + " jugó: " + showCurrentColor() + card.toString() + ANSI_RESET);
     }
 
     public void showDrawCard(String playerName) {
         System.out.println(ANSI_CYAN + "\n" + playerName + " no pudo jugar, robó una carta." + ANSI_RESET);
+    }
+
+    public void showRemakeDeck() {
+        System.out.println(ANSI_CYAN + "\nEl mazo se acabo, agregando al mazo de nuevo..." + ANSI_RESET);
+    }
+
+    public void showInvalidColor() {
+        System.out.println(ANSI_RED + "\nColor inválido." + ANSI_RESET);
+    }
+
+    public void showColorInput() {
+        System.out.print(ANSI_YELLOW + "\nElige a que color cambiar: " + ANSI_RESET);
     }
 
     public void showInputPrompt() {
