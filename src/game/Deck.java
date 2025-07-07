@@ -22,7 +22,7 @@ public final class Deck {
     private void createDeck() {
         // Add normal cards to deck
         for (String color : colors) {
-            for (int i = 0; i <= 0; i++) {
+            for (int i = 0; i <= 9; i++) {
                 NormalCard card = new NormalCard(i, color);
                 cards.add(card);
             }
@@ -32,7 +32,7 @@ public final class Deck {
         // Add special color cards to deck
         for (String color : colors) {
             for (String effect : effects) {
-                for (int i = 0; i < 1; i++) {
+                for (int i = 0; i < 2; i++) {
                     SpecialCard card = new SpecialCard(effect, color);
                     cards.add(card);
                 }
@@ -41,7 +41,7 @@ public final class Deck {
 
         // Add special black cards to deck
         for (String effect : blackEffects) {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 2; i++) {
                 SpecialCard card = new SpecialCard(effect);
                 cards.add(card);
             }
