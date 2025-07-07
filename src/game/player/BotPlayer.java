@@ -30,8 +30,6 @@ public class BotPlayer extends Player {
             specialCard.playEffect(specialCard.getEffect(), opponent, deck, null);
             ui.showCardEffect(specialCard, opponent);
         }
-        
-        GameEngine.currentColor = selected.getColor();
         int index = hand.indexOf(selected);
         removeCard(index);
         return selected;

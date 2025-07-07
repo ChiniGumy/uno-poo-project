@@ -121,15 +121,15 @@ public class UI {
     }
 
     public void showHumanPlay(String playerName, Card card) {
-        System.out.println(ANSI_CYAN + "\n" + playerName + " jugó: " + showCurrentColor() + card.toString() + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\n" + playerName + " jugo: " + showCurrentColor() + card.toString() + ANSI_RESET);
     }
     
     public void showBotPlay(String botName, Card card) {
-        System.out.println(ANSI_CYAN + "\n" + botName + " jugó: " + showCurrentColor() + card.toString() + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\n" + botName + " jugo: " + showCurrentColor() + card.toString() + ANSI_RESET);
     }
 
     public void showDrawCard(String playerName) {
-        System.out.println(ANSI_CYAN + "\n" + playerName + " no pudo jugar, robó una carta." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "\n" + playerName + " no pudo jugar, robo una carta." + ANSI_RESET);
     }
 
     public void showRemakeDeck() {
@@ -145,7 +145,7 @@ public class UI {
     }
 
     public void showInputPrompt() {
-        System.out.print(ANSI_YELLOW + "\nElige el índice de la carta a jugar: " + ANSI_RESET);
+        System.out.print(ANSI_YELLOW + "\nElige el indice de la carta a jugar: " + ANSI_RESET);
     }
     
     public void showInvalidPlay() {
@@ -158,6 +158,10 @@ public class UI {
    
     public void showInvalidInput() {
         System.out.println(ANSI_RED + "\nEntrada inválida." + ANSI_RESET);
+    }
+
+    public void turnSkipped(Player player) {
+        System.out.println("\n" + ANSI_CYAN + player.toString() + " No puede jugar porque le bloquearon el turno" + ANSI_RESET);
     }
 
     public void clearScreen() {  

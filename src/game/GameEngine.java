@@ -1,6 +1,7 @@
 package game;
 
 import game.card.Card;
+import game.card.NormalCard;
 import game.card.SpecialCard;
 import game.player.BotPlayer;
 import game.player.HumanPlayer;
@@ -72,39 +73,59 @@ public final class GameEngine {
     }
 
     public void playRound(Player currentPlayer, Player opponent, int round, Deck deck) {
-        Card topCard = cardHeap.getLastCardPlayed();
 
-        if (round == 1){
-            GameEngine.currentColor = topCard.getColor();
-        }
+        if (SpecialCard.skipedTurn) {
+            ui.clearScreen();
+            ui.showRound(player, bot, cardHeap, deck, round);
+            ui.turnSkipped(currentPlayer);
+            player.waitForUser();
+            SpecialCard.skipedTurn = false;
+            round++;
 
-        ui.clearScreen();
-        ui.showRound(player, bot, cardHeap, deck, round);
+        } else {
+            Card topCard = cardHeap.getLastCardPlayed();
 
-        if (currentPlayer instanceof BotPlayer) {
-            Card played = currentPlayer.playTurn(topCard, opponent, deck);
-            if (played != null) {
-                cardHeap.addCardToHeap(played);
-                ui.showBotPlay(currentPlayer.toString(), played);
-            } else {
-                currentPlayer.drawCard(deck);
-                ui.showDrawCard(currentPlayer.toString());
+            if (round == 1) {
+                GameEngine.currentColor = topCard.getColor();
             }
 
-            player.waitForUser();
+            ui.clearScreen();
+            ui.showRound(player, bot, cardHeap, deck, round);
 
-        } else if (currentPlayer instanceof HumanPlayer) {
-            if (isHandPlayable(player.getHand(), topCard)) {
+            if (currentPlayer instanceof BotPlayer) {
                 Card played = currentPlayer.playTurn(topCard, opponent, deck);
-                cardHeap.addCardToHeap(played);
-                ui.showHumanPlay(currentPlayer.toString(), played);
+                if (played != null) {
+                    cardHeap.addCardToHeap(played);
+                    if (played instanceof NormalCard) {
+                        GameEngine.currentColor = played.getColor();
+                    }
+                    ui.showBotPlay(currentPlayer.toString(), played);
+                } else {
+                    currentPlayer.drawCard(deck);
+                    ui.showDrawCard(currentPlayer.toString());
+                }
 
-            } else {
-                currentPlayer.drawCard(deck);
-                ui.showDrawCard(currentPlayer.toString());
+                player.waitForUser();
+
+            } else if (currentPlayer instanceof HumanPlayer) {
+                if (isHandPlayable(player.getHand(), topCard)) {
+                    Card played = currentPlayer.playTurn(topCard, opponent, deck);
+
+                    if (played instanceof NormalCard) {
+                        GameEngine.currentColor = played.getColor();
+                    }
+
+                    cardHeap.addCardToHeap(played);
+                    ui.showHumanPlay(currentPlayer.toString(), played);
+
+                } else {
+                    currentPlayer.drawCard(deck);
+                    ui.showDrawCard(currentPlayer.toString());
+                }
+                player.waitForUser();
             }
-            player.waitForUser();
         }
+
     }
     
     public void startGame() {

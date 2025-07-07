@@ -12,10 +12,10 @@ public class SpecialCard extends Card {
     UI ui = new UI();
     final private String effect;
     HumanPlayer human = new HumanPlayer();
-    
+
     private static final String[] effects = {"^", "&"};
     private static final String[] blackEffects = {"%", "+2", "+4"};
-   
+
     public SpecialCard(String effect, String color) {
         super(color);
         this.effect = effect;
@@ -26,12 +26,15 @@ public class SpecialCard extends Card {
         this.effect = effect;
     }
 
+    public static boolean skipedTurn = false;
+
     public void playEffect(String effect, Player opponent, Deck deck, Scanner scanner) {
         if (this.getColor().equals("n")) {
             if (opponent instanceof HumanPlayer) {
-                GameEngine.currentColor = Card.getColors()[(int)(Math.random() * 4)];
+                String randomColor = Card.getColors()[(int)(Math.random() * 4)];
+                GameEngine.currentColor = randomColor;
+                
             }
-            
             else if (opponent instanceof BotPlayer) {
                 ui.showAvailableColors();
                 String newColor;
@@ -53,6 +56,7 @@ public class SpecialCard extends Card {
             }
         }
 
+
         switch (effect) {
             case "+2" -> {
                 for (int i = 0; i < 2; i++) {
@@ -65,7 +69,8 @@ public class SpecialCard extends Card {
                 }
             }
             case "^", "&" -> {
-                GameEngine.round++;
+               SpecialCard.skipedTurn = true;
+                // GameEngine.round++;
             }
         }
 
@@ -87,7 +92,7 @@ public class SpecialCard extends Card {
     public String toString() {
         return color.toUpperCase() + effect;
     }
-    
+
     @Override
     public boolean isPlayable(Card topCard, String currentColor) {
         boolean sameColor = this.color.equals(currentColor);
