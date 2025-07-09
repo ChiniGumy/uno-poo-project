@@ -55,7 +55,6 @@ public class SpecialCard extends Card {
             }
         }
 
-
         switch (effect) {
             case "+2" -> {
                 for (int i = 0; i < 2; i++) {
@@ -69,7 +68,6 @@ public class SpecialCard extends Card {
             }
             case "^", "&" -> {
                SpecialCard.skipedTurn = true;
-                // GameEngine.round++;
             }
         }
 

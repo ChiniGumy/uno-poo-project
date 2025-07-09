@@ -100,7 +100,7 @@ public final class GameEngine {
                         GameEngine.currentColor = played.getColor();
                     }
                     if (played instanceof SpecialCard specialCard) {
-                        if (specialCard.getEffect().equals("&") || specialCard.getEffect().equals("&")) {
+                        if (specialCard.getEffect().equals("&") || specialCard.getEffect().equals("^")) {
                             GameEngine.currentColor = specialCard.getColor();
                         }
                     }
@@ -119,7 +119,7 @@ public final class GameEngine {
                         GameEngine.currentColor = played.getColor();
                     }
                     if (played instanceof SpecialCard specialCard) {
-                        if (specialCard.getEffect().equals("&") || specialCard.getEffect().equals("&")) {
+                        if (specialCard.getEffect().equals("&") || specialCard.getEffect().equals("^")) {
                             GameEngine.currentColor = specialCard.getColor();
                         }
                     }
