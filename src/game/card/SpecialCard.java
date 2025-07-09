@@ -11,7 +11,6 @@ public class SpecialCard extends Card {
 
     UI ui = new UI();
     final private String effect;
-    HumanPlayer human = new HumanPlayer();
 
     private static final String[] effects = {"^", "&"};
     private static final String[] blackEffects = {"%", "+2", "+4"};
