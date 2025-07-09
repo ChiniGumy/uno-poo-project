@@ -49,7 +49,7 @@ public class UI {
             coloredHand.add(colorCode + card.toString() + ANSI_RESET);
         }
 
-        System.out.println("Mano de " + player + ": " + coloredHand);
+        System.out.println("Mano de " + player + ": " + coloredHand + " [" + coloredHand.size() + "]");
     }
 
     public void showLastPlayedCard(CardHeap cardHeap) {
@@ -162,6 +162,10 @@ public class UI {
 
     public void turnSkipped(Player player) {
         System.out.println("\n" + ANSI_CYAN + player.toString() + " No puede jugar porque le bloquearon el turno" + ANSI_RESET);
+    }
+
+    public void sayUno(Player player) {
+        System.out.println(ANSI_CYAN + "\n" + player.toString() + " dice UNO!" + ANSI_RESET);
     }
 
     public void clearScreen() {  

@@ -33,7 +33,6 @@ public class SpecialCard extends Card {
             if (opponent instanceof HumanPlayer) {
                 String randomColor = Card.getColors()[(int)(Math.random() * 4)];
                 GameEngine.currentColor = randomColor;
-                
             }
             else if (opponent instanceof BotPlayer) {
                 ui.showAvailableColors();
@@ -96,8 +95,9 @@ public class SpecialCard extends Card {
     @Override
     public boolean isPlayable(Card topCard, String currentColor) {
         boolean sameColor = this.color.equals(currentColor);
+        boolean sameEffect = topCard instanceof SpecialCard && this.effect.equals(((SpecialCard) topCard).getEffect());
         boolean isBlack = this.color.equals("n");
-        return sameColor || isBlack;
+        return sameColor || isBlack || sameEffect ;
     }
 
 }

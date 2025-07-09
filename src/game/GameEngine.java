@@ -99,6 +99,11 @@ public final class GameEngine {
                     if (played instanceof NormalCard) {
                         GameEngine.currentColor = played.getColor();
                     }
+                    if (played instanceof SpecialCard specialCard) {
+                        if (specialCard.getEffect().equals("&") || specialCard.getEffect().equals("&")) {
+                            GameEngine.currentColor = specialCard.getColor();
+                        }
+                    }
                     ui.showBotPlay(currentPlayer.toString(), played);
                 } else {
                     currentPlayer.drawCard(deck);
@@ -110,14 +115,16 @@ public final class GameEngine {
             } else if (currentPlayer instanceof HumanPlayer) {
                 if (isHandPlayable(player.getHand(), topCard)) {
                     Card played = currentPlayer.playTurn(topCard, opponent, deck);
-
                     if (played instanceof NormalCard) {
                         GameEngine.currentColor = played.getColor();
                     }
-
+                    if (played instanceof SpecialCard specialCard) {
+                        if (specialCard.getEffect().equals("&") || specialCard.getEffect().equals("&")) {
+                            GameEngine.currentColor = specialCard.getColor();
+                        }
+                    }
                     cardHeap.addCardToHeap(played);
                     ui.showHumanPlay(currentPlayer.toString(), played);
-
                 } else {
                     currentPlayer.drawCard(deck);
                     ui.showDrawCard(currentPlayer.toString());
@@ -125,7 +132,6 @@ public final class GameEngine {
                 player.waitForUser();
             }
         }
-
     }
     
     public void startGame() {
@@ -139,11 +145,12 @@ public final class GameEngine {
             Player currentPlayer = (round % 2 == 0) ? bot : player;
             Player opponent = (round % 2 == 0) ? player : bot;
             playRound(currentPlayer, opponent, round, deck);
+
             if (player.getHand().isEmpty()) {
-                System.out.println(UI.ANSI_GREEN + "¡Jugador ha ganado!" + UI.ANSI_RESET);
+                System.out.println(UI.ANSI_GREEN + "¡Jugador ha ganado!\n" + UI.ANSI_RESET);
                 break;
             } else if (bot.getHand().isEmpty()) {
-                System.out.println(UI.ANSI_RED + "¡Bot ha ganado!" + UI.ANSI_RESET);
+                System.out.println(UI.ANSI_RED + "¡Bot ha ganado!\n" + UI.ANSI_RESET);
                 break;
             }
             round++;

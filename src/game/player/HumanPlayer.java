@@ -38,11 +38,18 @@ public class HumanPlayer extends Player {
                 if (index >= 0 && index < hand.size()) {
                     Card cardToPlay = hand.get(index);
                     if (cardToPlay.isPlayable(topCard, GameEngine.currentColor)) {
+
                         if (cardToPlay instanceof SpecialCard specialCard) {
                             specialCard.playEffect(specialCard.getEffect(), opponent, deck, scanner);
                             ui.showCardEffect(specialCard, opponent);
                         }
+                        
                         removeCard(index);
+
+                        if (this.getHand().size() == 1) {
+                            ui.sayUno(this);
+                        }
+
                         return cardToPlay;
                     } else {
                         ui.showInvalidPlay();
